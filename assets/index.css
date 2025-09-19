@@ -686,7 +686,7 @@ body {
 }
 
 .scroll-reveal {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(30px);
   transition: opacity var(--duration-slow) var(--ease-out),
     transform var(--duration-slow) var(--ease-out);
