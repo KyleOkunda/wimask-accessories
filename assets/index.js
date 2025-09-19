@@ -58,16 +58,43 @@ window.onload = function () {
   ];
   var arrHeroLink = ["tvs.html", "laptops.html", "cctvs.html"];
   var arrHeroLinkContent = ["Explore TVs", "Shop Now", "View Security"];
-  var counter = 0;
+  var heroCounter = 0;
   setInterval(function () {
-    heroImage.setAttribute("src", arrHeroImages[counter]);
-    heroTitle.innerText = arrHeroTitles[counter];
-    heroDescription.innerHTML = arrHeroDescription[counter];
-    heroLink.setAttribute("href", arrHeroLink[counter]);
-    heroLinkContent.innerText = arrHeroLinkContent[counter];
-    counter++;
-    if (counter > 2) {
-      counter = 0;
+    heroImage.setAttribute("src", arrHeroImages[heroCounter]);
+    heroTitle.innerText = arrHeroTitles[heroCounter];
+    heroDescription.innerHTML = arrHeroDescription[heroCounter];
+    heroLink.setAttribute("href", arrHeroLink[heroCounter]);
+    heroLinkContent.innerText = arrHeroLinkContent[heroCounter];
+    heroCounter++;
+    if (heroCounter > 2) {
+      heroCounter = 0;
     }
   }, 5000);
+
+  //left and right buttons for horizontal scroll
+  var carouseltracks = Array.from(
+    document.getElementsByClassName("carousel-track")
+  );
+  var navBtn = Array.from(document.getElementsByClassName("carousel-nav-btn"));
+  var navBtnMapper = new Map();
+  var trackCounter = 0;
+  for (var i = 0; i < navBtn.length; i = i + 2) {
+    var j = i + 1;
+    navBtnMapper.set(navBtn[i], carouseltracks[trackCounter]);
+    navBtnMapper.set(navBtn[j], carouseltracks[trackCounter]);
+    trackCounter++;
+  }
+
+  navBtn.forEach((btn) => {
+    btn.removeAttribute("disabled");
+    btn.addEventListener("click", function () {
+      let track = navBtnMapper.get(btn);
+
+      if (btn.classList.contains("right-2")) {
+        track.scrollBy({ left: 50, behavior: "smooth" });
+      } else {
+        track.scrollBy({ left: -50, behavior: "smooth" });
+      }
+    });
+  });
 };
