@@ -33,4 +33,41 @@ window.onload = function () {
       mobileMenu.innerHTML = mobileMenuContent;
     }
   });
+
+  //Hero slider
+  var heroImage = document.getElementById("hero-image");
+  var heroTitle = document.getElementById("hero-title");
+  var heroDescription = document.getElementById("hero-description");
+  var heroLink = document.getElementById("hero-link");
+  var heroLinkContent = document.getElementById("hero-link-content");
+
+  var arrHeroImages = [
+    "assets/hero-smart-tv.jpg",
+    "assets/hero-tech-products.jpg",
+    "assets/hero-security.jpg",
+  ];
+  var arrHeroTitles = [
+    "Tranform Your Entertainment",
+    "Latest Tech at Unbeatable Prices",
+    "Secure Your World",
+  ];
+  var arrHeroDescription = [
+    "Experience cinema-quality visuals with our premium TV collection featuring the latest smart features",
+    "Discover premium electronics from authorized dealers",
+    "Professional CCTV systems and security cameras for complete peace of mind and property protection",
+  ];
+  var arrHeroLink = ["tvs.html", "laptops.html", "cctvs.html"];
+  var arrHeroLinkContent = ["Explore TVs", "Shop Now", "View Security"];
+  var counter = 0;
+  setInterval(function () {
+    heroImage.setAttribute("src", arrHeroImages[counter]);
+    heroTitle.innerText = arrHeroTitles[counter];
+    heroDescription.innerHTML = arrHeroDescription[counter];
+    heroLink.setAttribute("href", arrHeroLink[counter]);
+    heroLinkContent.innerText = arrHeroLinkContent[counter];
+    counter++;
+    if (counter > 2) {
+      counter = 0;
+    }
+  }, 5000);
 };
