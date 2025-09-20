@@ -60,14 +60,16 @@ window.onload = function () {
   var arrHeroLinkContent = ["Explore TVs", "Shop Now", "View Security"];
   var heroCounter = 0;
   setInterval(function () {
-    heroImage.setAttribute("src", arrHeroImages[heroCounter]);
-    heroTitle.innerText = arrHeroTitles[heroCounter];
-    heroDescription.innerHTML = arrHeroDescription[heroCounter];
-    heroLink.setAttribute("href", arrHeroLink[heroCounter]);
-    heroLinkContent.innerText = arrHeroLinkContent[heroCounter];
-    heroCounter++;
-    if (heroCounter > 2) {
-      heroCounter = 0;
+    if (heroImage || heroTitle) {
+      heroImage.setAttribute("src", arrHeroImages[heroCounter]);
+      heroTitle.innerText = arrHeroTitles[heroCounter];
+      heroDescription.innerHTML = arrHeroDescription[heroCounter];
+      heroLink.setAttribute("href", arrHeroLink[heroCounter]);
+      heroLinkContent.innerText = arrHeroLinkContent[heroCounter];
+      heroCounter++;
+      if (heroCounter > 2) {
+        heroCounter = 0;
+      }
     }
   }, 5000);
 
@@ -96,5 +98,139 @@ window.onload = function () {
         track.scrollBy({ left: -50, behavior: "smooth" });
       }
     });
+  });
+
+  // Get variables for the modal
+  var arrProductImages = Array.from(
+    document.getElementsByClassName("product-image")
+  );
+  var arrProductNames = Array.from(
+    document.getElementsByClassName("product-name")
+  );
+  var arrProductPrices = Array.from(
+    document.getElementsByClassName("product-price")
+  );
+  var arrProductDescriptions = Array.from(
+    document.getElementsByClassName("product-description")
+  );
+  var arrProductSpecs = Array.from(
+    document.getElementsByClassName("product-specs")
+  );
+  var arrViewModals = Array.from(document.getElementsByClassName("view-modal"));
+
+  var modalMapper = new Map();
+  var arrCounter = 0;
+  arrViewModals.forEach((viewModal) => {
+    modalMapper.set(viewModal, [
+      arrProductImages[arrCounter],
+      arrProductNames[arrCounter],
+      arrProductPrices[arrCounter],
+      arrProductDescriptions[arrCounter],
+      arrProductSpecs[arrCounter],
+    ]);
+
+    arrCounter++;
+
+    viewModal.addEventListener("click", () => {
+      let modalInfo = modalMapper.get(viewModal);
+
+      setModal(modalInfo);
+    });
+  });
+
+  //function to set modal info
+  function setModal(modalInformation) {
+    //Initialize values
+    let image = modalInformation[0].getAttribute("src").trim();
+    let name = modalInformation[1].textContent.trim();
+    let price = modalInformation[2].textContent.trim();
+    let description = modalInformation[3].textContent.trim();
+    let specs = modalInformation[4].innerHTML.trim();
+
+    //get modal components
+    let modalHolder = document.getElementById("modal-holder");
+    let modalImage = document.getElementById("modal-image");
+    let modalName = document.getElementById("modal-name");
+    let modalPrice = document.getElementById("modal-price");
+    let modalDescription = document.getElementById("modal-description");
+    let modalSpecs = document.getElementById("modal-specs");
+
+    modalImage.setAttribute("src", image);
+    modalName.textContent = name;
+    modalPrice.textContent = price;
+    modalDescription.textContent = description;
+    modalSpecs.innerHTML = specs;
+
+    modalHolder.style.display = "block";
+
+    let modalClose = document.getElementById("modal-close-btn");
+    modalClose.addEventListener("click", () => {
+      modalHolder.style.display = "none";
+    });
+  }
+
+  //Filter for categories leverage var arrProductPrices from earlier
+  var allPrices = document.getElementById("all-prices");
+  var lessThan30 = document.getElementById("lt-30k");
+  var lessThan50 = document.getElementById("lt-50k");
+  var lessThan100 = document.getElementById("lt-100k");
+  var moreThan100 = document.getElementById("gt-100k");
+  var select = document.getElementsByTagName("select")[0];
+
+  var productCards = Array.from(
+    document.getElementsByClassName("product-card")
+  );
+  var articleMapper = new Map();
+  var cardCounter = 0;
+  arrProductPrices.forEach((price) => {
+    articleMapper.set(price, productCards[cardCounter]);
+    cardCounter++;
+  });
+
+  select.addEventListener("change", function () {
+    let option = select.selectedOptions[0];
+    console.log(option);
+
+    if (option == allPrices) {
+      arrProductPrices.forEach((price) => {
+        articleMapper.get(price).style.display = "block";
+      });
+    } else if (option == lessThan30) {
+      arrProductPrices.forEach((price) => {
+        let intPrice = parseInt(price.textContent.replace(",", ""));
+        if (intPrice < 30000) {
+          articleMapper.get(price).style.display = "block";
+        } else {
+          articleMapper.get(price).style.display = "none";
+        }
+      });
+    } else if (option == lessThan50) {
+      arrProductPrices.forEach((price) => {
+        let intPrice = parseInt(price.textContent.replace(",", ""));
+        if (intPrice < 50000) {
+          articleMapper.get(price).style.display = "block";
+        } else {
+          articleMapper.get(price).style.display = "none";
+        }
+      });
+    } else if (option == lessThan100) {
+      arrProductPrices.forEach((price) => {
+        let intPrice = parseInt(price.textContent.replace(",", ""));
+        if (intPrice < 100000) {
+          articleMapper.get(price).style.display = "block";
+        } else {
+          articleMapper.get(price).style.display = "none";
+        }
+      });
+    } else if (option == moreThan100) {
+      arrProductPrices.forEach((price) => {
+        let intPrice = parseInt(price.textContent.replace(",", ""));
+        if (intPrice > 100000) {
+          articleMapper.get(price).style.display = "block";
+        } else {
+          articleMapper.get(price).style.display = "none";
+        }
+      });
+    }
   });
 };
