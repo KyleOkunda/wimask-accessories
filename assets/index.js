@@ -166,14 +166,21 @@ window.onload = function () {
     let orderBtn = document.getElementById("order-btn");
     orderBtn.addEventListener("click", function () {
       let link = document.createElement("a");
+      let specs = modalSpecs.children;
+      let specsMessage = "";
+      Array.from(specs).forEach((spec) => {
+        specsMessage = specsMessage + spec.textContent.trim() + "\n";
+      });
       let message =
         "Hello. I would like to order the " +
         modalName.textContent.trim() +
-        " with the specs: " +
-        modalSpecs.innerText.trim() +
-        " for Ksh " +
+        " with the specs: \n" +
+        specsMessage +
+        "For Ksh " +
         modalPrice.textContent.trim();
-      message = message.replace(" ", "%20");
+      message = message.replaceAll(" ", "%20");
+      message = message.replaceAll("\n", "%0A");
+      message = message.replaceAll(":", ":     ");
       link.href = "https://wa.me/+254796020142?text=" + message;
       link.target = "_blank";
       link.click();
@@ -212,17 +219,23 @@ window.onload = function () {
   function setOrder(orderInformation) {
     let name = orderInformation[1];
     let price = orderInformation[2];
-    let specs = orderInformation[4];
+    let specs = orderInformation[4].children;
     let link = document.createElement("a");
+    let specsMessage = "";
+    Array.from(specs).forEach((spec) => {
+      specsMessage = specsMessage + spec.textContent.trim() + "\n";
+    });
     let message =
       "Hello. I would like to order the " +
       name.textContent.trim() +
-      " with the specs: " +
-      specs.innerText.trim() +
-      " for Ksh " +
+      " with the specs:\n" +
+      specsMessage +
+      "For Ksh " +
       price.textContent.trim();
-    console.log(message);
+
     message = message.replace(" ", "%20");
+    message = message.replaceAll("\n", "%0A");
+    message = message.replaceAll(":", ":     ");
     link.href = "https://wa.me/+254796020142?text=" + message;
     link.target = "_blank";
     link.click();
