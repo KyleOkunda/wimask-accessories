@@ -24,13 +24,13 @@ window.onload = function () {
   mobileMenu.addEventListener("click", () => {
     if (mobileMenu.classList.contains("showing")) {
       mobileMenu.classList.remove("showing");
+      mobileNav.style.display = "none";
+      mobileMenu.innerHTML = mobileMenuContent;
+    } else {
+      mobileMenu.classList.add("showing");
       mobileNav.style.display = "block";
       mobileMenu.innerHTML =
         '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-6 w-6"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>';
-    } else {
-      mobileMenu.classList.add("showing");
-      mobileNav.style.display = "none";
-      mobileMenu.innerHTML = mobileMenuContent;
     }
   });
 
@@ -163,10 +163,69 @@ window.onload = function () {
 
     modalHolder.style.display = "block";
 
+    let orderBtn = document.getElementById("order-btn");
+    orderBtn.addEventListener("click", function () {
+      let link = document.createElement("a");
+      let message =
+        "Hello. I would like to order the " +
+        modalName.textContent.trim() +
+        " with the specs: " +
+        modalSpecs.innerText.trim() +
+        " for Ksh " +
+        modalPrice.textContent.trim();
+      message = message.replace(" ", "%20");
+      link.href = "https://wa.me/+254796020142?text=" + message;
+      link.target = "_blank";
+      link.click();
+    });
+
     let modalClose = document.getElementById("modal-close-btn");
     modalClose.addEventListener("click", () => {
       modalHolder.style.display = "none";
     });
+  }
+
+  //Order button on product cards leverage arrviewModals to get sibling
+  var arrOrderBtn = [];
+  arrViewModals.forEach((viewModal) => {
+    let orderBtn = viewModal.nextSibling;
+    arrOrderBtn.push(orderBtn);
+  });
+  var orderMapper = new Map();
+  var orderCounter = 0;
+  arrOrderBtn.forEach((btn) => {
+    orderMapper.set(btn, [
+      arrProductImages[orderCounter],
+      arrProductNames[orderCounter],
+      arrProductPrices[orderCounter],
+      arrProductDescriptions[orderCounter],
+      arrProductSpecs[orderCounter],
+    ]);
+    orderCounter++;
+
+    btn.addEventListener("click", function () {
+      let orderInfo = orderMapper.get(btn);
+      setOrder(orderInfo);
+    });
+  });
+
+  function setOrder(orderInformation) {
+    let name = orderInformation[1];
+    let price = orderInformation[2];
+    let specs = orderInformation[4];
+    let link = document.createElement("a");
+    let message =
+      "Hello. I would like to order the " +
+      name.textContent.trim() +
+      " with the specs: " +
+      specs.innerText.trim() +
+      " for Ksh " +
+      price.textContent.trim();
+    console.log(message);
+    message = message.replace(" ", "%20");
+    link.href = "https://wa.me/+254796020142?text=" + message;
+    link.target = "_blank";
+    link.click();
   }
 
   //Filter for categories leverage var arrProductPrices from earlier
@@ -193,44 +252,69 @@ window.onload = function () {
 
     if (option == allPrices) {
       arrProductPrices.forEach((price) => {
-        articleMapper.get(price).style.display = "block";
+        articleMapper.get(price).parentElement.style.display = "block";
       });
     } else if (option == lessThan30) {
       arrProductPrices.forEach((price) => {
         let intPrice = parseInt(price.textContent.replace(",", ""));
         if (intPrice < 30000) {
-          articleMapper.get(price).style.display = "block";
+          articleMapper.get(price).parentElement.style.display = "block";
         } else {
-          articleMapper.get(price).style.display = "none";
+          articleMapper.get(price).parentElement.style.display = "none";
         }
       });
     } else if (option == lessThan50) {
       arrProductPrices.forEach((price) => {
         let intPrice = parseInt(price.textContent.replace(",", ""));
         if (intPrice < 50000) {
-          articleMapper.get(price).style.display = "block";
+          articleMapper.get(price).parentElement.style.display = "block";
         } else {
-          articleMapper.get(price).style.display = "none";
+          articleMapper.get(price).parentElement.style.display = "none";
         }
       });
     } else if (option == lessThan100) {
       arrProductPrices.forEach((price) => {
         let intPrice = parseInt(price.textContent.replace(",", ""));
         if (intPrice < 100000) {
-          articleMapper.get(price).style.display = "block";
+          articleMapper.get(price).parentElement.style.display = "block";
         } else {
-          articleMapper.get(price).style.display = "none";
+          articleMapper.get(price).parentElement.style.display = "none";
         }
       });
     } else if (option == moreThan100) {
       arrProductPrices.forEach((price) => {
         let intPrice = parseInt(price.textContent.replace(",", ""));
         if (intPrice > 100000) {
-          articleMapper.get(price).style.display = "block";
+          articleMapper.get(price).parentElement.style.display = "block";
         } else {
-          articleMapper.get(price).style.display = "none";
+          articleMapper.get(price).parentElement.style.display = "none";
         }
       });
     }
+  });
+
+  //Search bar, leverage arrProductNames and productCards from earlier
+  var search = document.getElementById("search");
+  var nameMapper = new Map();
+  let productCounter = 0;
+
+  arrProductNames.forEach((productName) => {
+    nameMapper.set(productName, productCards[productCounter]);
+    productCounter++;
+  });
+
+  search.addEventListener("input", function () {
+    let searchValue = search.value.trim().toLowerCase();
+
+    arrProductNames.forEach((productName) => {
+      let name = productName.textContent.trim().toLowerCase();
+
+      let card = nameMapper.get(productName);
+      if (name.trim().includes(searchValue)) {
+        card.parentElement.style.display = "block";
+      } else {
+        card.parentElement.style.display = "none";
+      }
+    });
   });
 };

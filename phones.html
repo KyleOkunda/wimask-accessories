@@ -492,6 +492,7 @@
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.3-4.3"></path></svg
                 ><input
+                  id="search"
                   type="search"
                   class="flex h-10 w-full rounded-md border border-input bg-background px-3 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 pr-4 py-2"
                   placeholder="Search phones..."
@@ -624,30 +625,27 @@
                 </div>
 
                 <div class="space-y-3 pt-4">
-                  <a
-                    href="https://wa.me/254796020142?text=Hello%2C%20I%27m%20interested%20in%20your%20products"
-                    target="_blank"
+                  <button
+                    id="order-btn"
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp-hover shadow-sm hover:shadow-md h-11 rounded-md px-8 w-full transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-lg py-6"
+                    aria-label="Order Samsung Galaxy S24 Ultra via WhatsApp"
                   >
-                    <button
-                      class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp-hover shadow-sm hover:shadow-md h-11 rounded-md px-8 w-full transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-lg py-6"
-                      aria-label="Order Samsung Galaxy S24 Ultra via WhatsApp"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-message-circle h-5 w-5 mr-2"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-message-circle h-5 w-5 mr-2"
-                      >
-                        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg
-                      >Order via WhatsApp
-                    </button>
-                  </a>
+                      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg
+                    >Order via WhatsApp
+                  </button>
+
                   <p class="text-xs text-muted-foreground text-center">
                     Click to start a WhatsApp conversation with our sales team
                   </p>
