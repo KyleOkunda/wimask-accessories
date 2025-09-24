@@ -181,7 +181,7 @@ window.onload = function () {
       message = message.replaceAll(" ", "%20");
       message = message.replaceAll("\n", "%0A");
       message = message.replaceAll(":", ":     ");
-      link.href = "https://wa.me/+254796020142?text=" + message;
+      link.href = "https://wa.me/+254114714182?text=" + message;
       link.target = "_blank";
       link.click();
     });
@@ -236,7 +236,7 @@ window.onload = function () {
     message = message.replace(" ", "%20");
     message = message.replaceAll("\n", "%0A");
     message = message.replaceAll(":", ":     ");
-    link.href = "https://wa.me/+254796020142?text=" + message;
+    link.href = "https://wa.me/+254114714182?text=" + message;
     link.target = "_blank";
     link.click();
   }
