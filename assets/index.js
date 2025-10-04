@@ -161,6 +161,7 @@ window.onload = function () {
     modalHolder.style.display = "block";
 
     let orderBtn = document.getElementById("order-btn");
+
     orderBtn.addEventListener("click", function () {
       let link = document.createElement("a");
       let specs = modalSpecs.children;
