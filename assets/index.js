@@ -42,22 +42,19 @@ window.onload = function () {
   var heroLinkContent = document.getElementById("hero-link-content");
 
   var arrHeroImages = [
-    "assets/hero-smart-tv.jpg",
+    "assets/hero-laptop.jpg",
     "assets/hero-tech-products.jpg",
-    "assets/hero-security.jpg",
   ];
   var arrHeroTitles = [
-    "Tranform Your Entertainment",
+    "Powerful and Reliable Laptops",
     "Latest Tech at Unbeatable Prices",
-    "Secure Your World",
   ];
   var arrHeroDescription = [
-    "Experience cinema-quality visuals with our premium TV collection featuring the latest smart features",
+    "Student laptops, budget‑friendly, fast performance, durable build, solid value",
     "Discover premium electronics from authorized dealers",
-    "Professional CCTV systems and security cameras for complete peace of mind and property protection",
   ];
-  var arrHeroLink = ["tvs.html", "laptops.html", "cctvs.html"];
-  var arrHeroLinkContent = ["Explore TVs", "Shop Now", "View Security"];
+  var arrHeroLink = ["laptops.html", "phones.html"];
+  var arrHeroLinkContent = ["Explore Laptops", "Shop Now"];
   var heroCounter = 0;
   setInterval(function () {
     if (heroImage || heroTitle) {
@@ -67,7 +64,7 @@ window.onload = function () {
       heroLink.setAttribute("href", arrHeroLink[heroCounter]);
       heroLinkContent.innerText = arrHeroLinkContent[heroCounter];
       heroCounter++;
-      if (heroCounter > 2) {
+      if (heroCounter > 1) {
         heroCounter = 0;
       }
     }
